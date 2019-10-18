@@ -35,6 +35,8 @@ class ReceiverController < ApplicationController
 					valid
 				end
 			end
+		elsif agent == "Go-http-client/1.1"
+			true
 		else
 			render json: {
 				:message => :error,
