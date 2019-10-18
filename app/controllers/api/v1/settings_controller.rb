@@ -118,7 +118,6 @@ class Api::V1::SettingsController < ApplicationController
 	# SUMMARY: 	Destroys a specific Setting record.
 	#
 	def destroy
-		params.permit!
 		self.user_has_permissions(Permissions::EDIT) do
 			id = params[:id]
 			if Setting.where(id: id).present? then
@@ -136,7 +135,6 @@ class Api::V1::SettingsController < ApplicationController
 
 	private
 	def setting_params(params)
-		params.permit!
 		params.require(:setting).permit(:name, :value)
 	end
 
