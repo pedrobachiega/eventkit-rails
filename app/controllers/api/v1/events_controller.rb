@@ -11,6 +11,7 @@ class Api::V1::EventsController < ApplicationController
 	# SUMMARY:  Retrieves a list of all the Event records.
 	#
 	def index
+		params.permit!
 		query = params.except(:action, :controller, :offset, :limit, :descending, :sortby, :since, :like, :detailed, :format, :token)
 
 		if params[:like] then
