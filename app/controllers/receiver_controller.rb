@@ -15,11 +15,13 @@ class ReceiverController < ApplicationController
 	include BCrypt
 
 	def header_check
-		agent = request.headers["User-Agent"]
+		puts agent = request.headers["User-Agent"]
 		if agent == "SendGrid Event API" or agent == "SendGrid Event API Test"
 			if User.count > 0 then
 				authenticate_or_request_with_http_basic('Authorized users only') do |u, p|
 					valid = false
+					puts "username: #{u}"
+					puts "password: #{p}"
 
 					if User.where(username: u).present?
 						User.where(username: u).each do |user|
