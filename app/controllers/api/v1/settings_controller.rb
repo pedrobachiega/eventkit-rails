@@ -9,6 +9,7 @@ class Api::V1::SettingsController < ApplicationController
 	# SUMMARY:  Retrieves a list of all the Setting records.
 	#
 	def index
+		params.permit!
 		query = params.except(:action, :controller, :offset, :limit, :descending, :sortby)
 
 		if query.keys.count then
@@ -59,6 +60,7 @@ class Api::V1::SettingsController < ApplicationController
 	# SUMMARY: 	Creates a new Setting record with the given parameters.
 	#
 	def create
+		params.permit!
 		properties = setting_params(params)
 		record = Setting.create(properties)
 		render json: record
@@ -72,6 +74,7 @@ class Api::V1::SettingsController < ApplicationController
 	# SUMMARY: 	Retrieves a specific Setting record.
 	#
 	def show
+		params.permit!
 		if Setting.where(id: params[:id]).present? then
 			setting = Setting.find(params[:id])
 			render json: setting
@@ -91,6 +94,7 @@ class Api::V1::SettingsController < ApplicationController
 	# SUMMARY: 	Updates a specific Setting record with given parameters.
 	#
 	def update
+		params.permit!
 		self.user_has_permissions(Permissions::EDIT) do
 			id = params[:id]
 			if Setting.where(id: id).present? then
@@ -114,6 +118,7 @@ class Api::V1::SettingsController < ApplicationController
 	# SUMMARY: 	Destroys a specific Setting record.
 	#
 	def destroy
+		params.permit!
 		self.user_has_permissions(Permissions::EDIT) do
 			id = params[:id]
 			if Setting.where(id: id).present? then
@@ -131,6 +136,7 @@ class Api::V1::SettingsController < ApplicationController
 
 	private
 	def setting_params(params)
+		params.permit!
 		params.require(:setting).permit(:name, :value)
 	end
 
