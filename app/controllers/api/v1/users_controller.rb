@@ -14,6 +14,7 @@ class Api::V1::UsersController < ApplicationController
 	#
 	def index
 		def find_users
+			params.permit!
 			query = params.except(:action, :controller, :offset, :limit, :descending, :sortby)
 
 			if query.keys.count then
