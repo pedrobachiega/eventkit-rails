@@ -20,8 +20,6 @@ class ReceiverController < ApplicationController
 			if User.count > 0 then
 				authenticate_or_request_with_http_basic('Authorized users only') do |u, p|
 					valid = false
-					puts "username: #{u}"
-					puts "password: #{p}"
 
 					if User.where(username: u).present?
 						User.where(username: u).each do |user|
